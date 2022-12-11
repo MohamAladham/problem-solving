@@ -17,35 +17,21 @@ class Solution {
      * @return ListNode
      */
     function mergeTwoLists($list1, $list2) {
-     
-        $head = null;
-        $pointer = null;
+        $res = new ListNode(-1);
+        $head = $res;
 
         while($list1 || $list2){
-            if(!$list1){
-                $node = $list2;
-                $list2 = $list2->next;
-            }elseif(!$list2){
-                $node = $list1;
-                $list1 = $list1->next;
-            }elseif($list1->val <= $list2->val ){
-                $node = $list1;
+            if(!$list2 || ($list1 && $list1->val < $list2->val)){
+                $head->next = new ListNode($list1->val, null);
                 $list1 = $list1->next;
             }else{
-                $node = $list2;
+                $head->next = new ListNode($list2->val, null);
                 $list2 = $list2->next;
             }
 
-            if($head === NULL){
-                $pointer = $node;
-                $head = $pointer;
-            }else{
-                $pointer->next = $node;
-                $pointer = $pointer->next;
-            }
+            $head = $head->next;
         }
 
-
-        return $head;
+        return $res->next;
     }
 }
