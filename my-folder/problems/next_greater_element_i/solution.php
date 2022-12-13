@@ -6,27 +6,22 @@ class Solution {
      * @return Integer[]
      */
     function nextGreaterElement($nums1, $nums2) {
-        $stack = [];
-        $hash_next = [];
-        $ans = [];
+        $stack = new SplStack();
+        $hash = [];
+        $res = [];
 
-        if(!$nums1 || !$nums2){
-            return -1;
-        }
-
-        foreach($nums2 as $v){
-            while($stack && $v > end($stack)){
-                $popped = array_pop($stack);
-                $hash_next[$popped] = $v;
+        foreach($nums2 as $n){
+            while(!$stack->isEmpty() && $stack->top() < $n){
+                $hash[$stack->pop()] = $n;
             }
-        
-            array_push($stack, $v);
+
+            $stack->push($n);
         }
 
-        foreach($nums1 as $a){
-            $ans[] = $hash_next[$a]??-1;
+        foreach($nums1 as $n){
+            $res[] = $hash[$n] ?? -1;
         }
-        
-        return $ans;
+
+        return $res;
     }
 }
