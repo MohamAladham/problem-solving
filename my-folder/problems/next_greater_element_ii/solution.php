@@ -5,24 +5,20 @@ class Solution {
      * @return Integer[]
      */
     function nextGreaterElements($nums) {
-        $stack = [];
-        $result = [];
-
-        foreach($nums as $n){
-            $result[] = -1;
-        }
+        $stack = new SplStack();
+        $arr = array_fill(0,count($nums), -1);
 
         for($i=1; $i<=2; $i++){
-            foreach($nums as $index=>$n){
-                while($stack && $n > $nums[end($stack)]){
-                    $result[array_pop($stack)] = $n;
-                }
+           foreach($nums as $k=>$v){
+               while(!$stack->isEmpty() && $nums[$stack->top()]<$v){
+                   $pop = $stack->pop();
+                   $arr[$pop] = $v;
+               }
 
-                array_push($stack, $index);
-            }
+               $stack->push($k);
+           }
         }
 
-
-        return $result;
+        return $arr;
     }
 }
