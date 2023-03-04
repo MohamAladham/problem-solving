@@ -5,19 +5,18 @@ class Solution {
      * @return Integer
      */
     function maxProfit($prices) {
-        $min_p = PHP_INT_MAX;
-        $max   = 0;
+        $buyPointer = 0;
+        $maxProfit = 0;
 
-        foreach ( $prices as $k => $v )
-        {
-            if ( $min_p > $v  )
-            {
-                $min_p   = $v;
-            }elseif($v - $min_p > $max){
-                $max = $v - $min_p;
+        for($sellPointer=1; $sellPointer<count($prices); $sellPointer++){
+            if($prices[$sellPointer] > $prices[$buyPointer]){
+                $profit = $prices[$sellPointer] - $prices[$buyPointer];
+                $maxProfit = max( $maxProfit, $profit );
+            }else{
+                $buyPointer = $sellPointer;
             }
         }
 
-        return $max;
+        return $maxProfit;
     }
 }
