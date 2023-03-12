@@ -13,28 +13,34 @@
  */
 class Solution {
 
-
     /**
      * @param TreeNode $root
      * @return Integer
      */
     function sumOfLeftLeaves($root) {
+        $q = new SplQueue();
+        $q->enqueue($root);
         $sum = 0;
-        $this->DFS($root, $sum);
+
+        while(!$q->isEmpty()){
+            $count = $q->count();
+
+            for($i=0; $i<$count; $i++){
+                $node = $q->dequeue();
+    
+                if($node->left && !$node->left->left && !$node->left->right){
+                    $sum += $node->left->val;
+                }  
+
+                if($node->left ){
+                    $q->enqueue($node->left);
+                }
+                if($node->right){
+                    $q->enqueue($node->right);
+                }
+            }
+        }
+
         return $sum;
-    }
-
-
-    function DFS($root, &$sum){
-        if(!$root){
-            return 0;
-        }
-
-        if(!$root->left && !$root->right){
-            return  $root->val;
-        }
-
-        $sum += $this->DFS($root->left, $sum);
-        $this->DFS($root->right, $sum);
     }
 }
