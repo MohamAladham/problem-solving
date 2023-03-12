@@ -18,41 +18,29 @@ class Solution {
      * @return Integer
      */
     function maxDepth($root) {
-      // return $this->BFS($root);
-       return $this->DFS($root);
-    }
-
-    function DFS($root){
         if(!$root){
-            return 0;
+return 0;
         }
+        $q = new SplQueue();
+        $q->enqueue($root);
+        $count = 0;
 
-        return 1 + max($this->DFS($root->left), $this->DFS($root->right));
-    }
+        while(!$q->isEmpty()){
+            $qCount = $q->count();
+            $count++;
 
-    function BFS($root){
-        if(!$root){
-            return 0;
-        }
+            for($i=0; $i<$qCount; $i++){
+                $node = $q->dequeue();
 
-        $queue = new SplQueue();
-        $queue->enqueue($root);       
-        $levels = 0;
-
-        while(!$queue->isEmpty()){
-            $count_queue = $queue->count();
-            for($i=0; $i<$count_queue; $i++){
-                $node = $queue->dequeue();
                 if($node->left){
-                    $queue->enqueue($node->left);       
+                    $q->enqueue($node->left);
                 }
                 if($node->right){
-                    $queue->enqueue($node->right);       
+                    $q->enqueue($node->right);
                 }
             }
-            $levels++;
         }
 
-        return $levels;
+        return $count;
     }
 }
