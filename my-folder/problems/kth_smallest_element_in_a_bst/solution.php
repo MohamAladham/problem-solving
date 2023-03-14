@@ -21,17 +21,20 @@ class Solution {
     function kthSmallest($root, $k) {
         $arr = [];
         $this->DFS($root, $k, $arr);
-        return $arr[$k - 1];
+var_dump($arr);
+        return $arr[$k-1];
     }
 
 
     function DFS($root, $k, &$arr){
-        if(!$root){
+        if(!$root || count($arr) === $k){
             return;
         }
 
         $this->DFS($root->left, $k, $arr);
+        
         $arr[] = $root->val;
+        
         $this->DFS($root->right, $k, $arr);
     }
 }
