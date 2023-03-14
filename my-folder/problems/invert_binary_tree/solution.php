@@ -18,21 +18,34 @@ class Solution {
      * @return TreeNode
      */
     function invertTree($root) {
-        $this->DFS($root);
-        return $root;
-    }
-
-
-    function DFS($root){
         if(!$root){
-            return;
+            return $root;
+        }
+        
+        $q = new SplQueue();
+        $q->enqueue($root);
+
+        while(!$q->isEmpty()){
+            $count = $q->count();
+
+            for($i=0; $i<$count; $i++){
+                $node = $q->dequeue();
+            
+                $left = $node->left;
+                $node->left = $node->right;
+                $node->right = $left;
+
+                if($node->left){
+                    $q->enqueue($node->left);
+                }
+
+                if($node->right){
+                    $q->enqueue($node->right);
+                }
+
+            }
         }
 
-        $right = $root->right;
-        $root->right = $root->left;
-        $root->left = $right;
-
-        $this->DFS($root->right);
-        $this->DFS($root->left);
+        return $root;
     }
 }
