@@ -8,14 +8,14 @@ class Solution {
     function twoSum($nums, $target) {
         $hash = [];
 
-        foreach($nums as $k=>$v){
-            if(isset($hash[$v])){
-                return [$hash[$v], $k];
+        foreach($nums as $index=>$val){
+            if(isset($hash[$val])){
+                return [$hash[$val], $index];
             }
-
-            $hash[$target - $v] = $k;
+            
+            $hash[$target-$val] = $index;
         }
 
-        return [];
+        return $nums;
     }
 }
