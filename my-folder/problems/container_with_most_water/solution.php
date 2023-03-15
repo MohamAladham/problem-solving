@@ -5,21 +5,16 @@ class Solution {
      * @return Integer
      */
     function maxArea($height) {
-        $count = count( $height );
-        $max   = 0;
-        $left  = 0;
-        $right = $count - 1;
+        $left = 0;
+        $right = count($height) - 1;
+        $max = 0;
 
-        while ( $left < $right )
-        {
-            $area = ( $right - $left ) * min( $height[$left], $height[$right] );
-            $max  = max( $area, $max );
+        while($left < $right){
+            $max = max($max, ($right - $left) * min($height[$left], $height[$right]));
 
-            if ( $height[$left] <= $height[$right] )
-            {
+            if($height[$left] < $height[$right]){
                 $left++;
-            } else
-            {
+            }else{
                 $right--;
             }
         }
