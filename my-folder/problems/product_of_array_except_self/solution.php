@@ -5,36 +5,36 @@ class Solution {
      * @return Integer[]
      */
     function productExceptSelf($nums) {
-        $count  = count( $nums );
-        $result = [];
-        $left   = 1;
-        $right  = 1;
+        $pre = [];
+        $post = [];
+        $ans = [];
 
-        for ( $i = 0; $i < $count; $i++ )
-        {
-            if ( $i === 0 )
-            {
-                $result[$i] = 1;
-            } else
-            {
-                $left       *= $nums[$i - 1];
-                $result[$i] = $left;
+        foreach($nums as $index=>$val){
+            if($index === 0){
+                $pre[] = $val;
+            }else{
+                $pre[] = $pre[$index-1] * $val;
             }
         }
 
-        for ( $i = $count - 1; $i >= 0; $i-- )
-        {
-            if ( $i === $count - 1 )
-            {
-                $result[$i] *= 1;
-            } else
-            {
-                $right = $right * $nums[$i + 1];
+        for($i=count($nums)-1; $i>=0; $i--){
+            if($i === count($nums)-1){
+                $post[$i] = $val;
+            }else{
+                $post[$i] = $post[$i+1] * $nums[$i];
             }
-
-            $result[$i] *= $right;
+        }
+        
+        foreach($nums as $index=>$val){
+            if($index === 0){
+                $ans[$index] = $post[$index+1];
+            }elseif($index === count($nums)-1){
+                $ans[$index] = $pre[$index-1];
+            }else{
+                $ans[$index] = $pre[$index-1] * $post[$index+1];
+            }
         }
 
-        return $result;        
+        return $ans;
     }
 }
