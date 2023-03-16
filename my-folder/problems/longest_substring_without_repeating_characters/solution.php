@@ -4,22 +4,23 @@ class Solution {
      * @param String $s
      * @return Integer
      */
-    function lengthOfLongestSubstring($s) {        
-        $start = 0;    //current starting position of search
-        $length = 0; //current max length of substring
-       
-        for($i = 0; $i < strlen($s); $i++){
-            $char = $s[$i];
-            
-            if(isset($arr[$char]) && $arr[$char] >= $start){
-                $start = $arr[$char] + 1;
-            } elseif($i - $start === $length) {
-                $length++;
+    function lengthOfLongestSubstring($s) {
+      // amjbcbxdcvz
+      // pwwkew
+      
+        $hash = [];
+        $max = 0;
+        $left = 0;
+
+        for($right=0; $right<strlen($s); $right++){
+            if(isset($hash[$s[$right]]) && $left < $hash[$s[$right]]+1){
+                $left=$hash[$s[$right]]+1;
             }
 
-            $arr[$char] = $i;
+            $hash[$s[$right]] = $right;
+            $max = max($right-$left+1, $max);
         }
-        
-        return $length;
+
+        return $max;
     }
 }
