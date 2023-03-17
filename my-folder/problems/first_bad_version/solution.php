@@ -7,14 +7,14 @@ class Solution extends VersionControl {
      * @return Integer
      */
     function firstBadVersion($n) {
+        // 1, 2, 3, 4, 5
         $left = 1;
-        $right = $n;
+        $right = $n - 1;
 
-        while($left <= $right){
-            $m = floor(($left+$right)/2);
-            $isBad = $this->isBadVersion($m);
+        while($left<=$right){
+            $m = floor(($right+$left)/2);
 
-            if($isBad){
+            if($this->isBadVersion($m)){
                 $right = $m - 1;
             }else{
                 $left = $m + 1;
