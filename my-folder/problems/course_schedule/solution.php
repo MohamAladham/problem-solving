@@ -8,10 +8,6 @@ class Solution {
     function canFinish($numCourses, $prerequisites) {
         $adj = [];
 
-        for ($i = 0; $i < $numCourses; $i++) {
-            $adj[$i] = [];
-        }
-        
         foreach ($prerequisites as $p) {
             $adj[$p[0]][] = $p[1];
         }
@@ -31,7 +27,7 @@ class Solution {
 
     function detectCycleDFSRecursive($currentNode, $adj, &$nodeToVisitedState) {
         // Base cases
-        $currentVisitedState = isset($nodeToVisitedState[$currentNode]) ? $nodeToVisitedState[$currentNode] : 0;
+        $currentVisitedState = $nodeToVisitedState[$currentNode] ?? 0;
         // We're seeing a node again as part of one of its children recursive calls --> we have a cycle.
         if ($currentVisitedState == 1) {
             return true;
@@ -45,8 +41,7 @@ class Solution {
         $nodeToVisitedState[$currentNode] = 1;
     
         foreach ($adj[$currentNode] as $neighbour) {
-            $neighbourHasCycle = $this->detectCycleDFSRecursive($neighbour, $adj, $nodeToVisitedState);
-            if ($neighbourHasCycle) {
+            if ($this->detectCycleDFSRecursive($neighbour, $adj, $nodeToVisitedState)) {
                 return true;
             }
         }
