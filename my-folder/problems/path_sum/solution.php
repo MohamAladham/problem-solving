@@ -13,30 +13,41 @@
  */
 class Solution {
 
-    private $targetSum;
-
     /**
      * @param TreeNode $root
      * @param Integer $targetSum
      * @return Boolean
      */
     function hasPathSum($root, $targetSum) {
-        $this->targetSum = $targetSum;
-        return $this->DFS($root, 0);
+        $sum = $root->val;
+        $found= null;
+
+        $this->DFS($root, $targetSum, $sum, $found);
+
+        return $found;
     }
 
 
-    function DFS($root, $sum){
-        if(!$root){
-            return false;
+    function DFS($root, $targetSum, &$sum, &$found){
+        if($sum === $targetSum && !$root->left && !$root->right){
+            $found = true;
+            return;
+        }
+        
+        if(!$root || $found){
+            return;
         }
 
-        $sum += $root->val;
-
-        if(!$root->left && !$root->right){
-            return $sum === $this->targetSum;
+        if($root->left){
+            $sum += $root->left->val;
+            $this->DFS($root->left, $targetSum, $sum, $found);
+            $sum -= $root->left->val;
         }
-
-        return $this->DFS($root->left, $sum) || $this->DFS($root->right, $sum);
+    
+        if($root->right){
+            $sum += $root->right->val;
+            $this->DFS($root->right, $targetSum, $sum, $found);
+            $sum -= $root->right->val;
+        }
     }
 }
