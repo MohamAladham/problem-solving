@@ -18,13 +18,7 @@ class Solution {
                 $counter++;
             }
                       
-            if($colorsHash[$counter]){
-                $nums[$j] = $counter;
-            }else{
-                $counter++;
-                $nums[$j] = $counter;
-            }
-
+            $nums[$j] = $counter;
             $colorsHash[$counter]--;
         }
     }
