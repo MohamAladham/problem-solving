@@ -5,12 +5,12 @@ class Solution {
      * @return Integer
      */
     function maxAreaOfIsland($grid) {
-        $max = 0;
+        $max = 0; 
 
-        foreach($grid as $r=>$rows){
-            foreach($rows as $c=>$value){
-                if($value === 1){
-                   $max = max($max, $this->DFS($grid, $r, $c));
+        for($i=0; $i<count($grid); $i++){
+            for($j=0; $j<count($grid[0]); $j++){
+                if($grid[$i][$j] === 1){
+                    $max = max($max, $this->DFS($grid, $i, $j));
                 }
             }
         }
@@ -18,17 +18,14 @@ class Solution {
         return $max;
     }
 
-
-    function DFS(&$grid, $r, $c){
-        if(!isset($grid[$r][$c]) || $grid[$r][$c] !== 1){
+    function DFS(&$grid, $i, $j){
+        if(!isset($grid[$i][$j]) || $grid[$i][$j] != 1){
             return 0;
         }
-        
-        $grid[$r][$c] = 2;
 
-        return 1 + $this->DFS($grid, $r - 1, $c)
-                + $this->DFS($grid, $r + 1, $c)
-                + $this->DFS($grid, $r, $c - 1)
-                + $this->DFS($grid, $r, $c + 1);
-    }
+        $grid[$i][$j] = 0;
+
+        return 1 + $this->DFS($grid, $i-1, $j) + $this->DFS($grid, $i+1, $j) 
+        + $this->DFS($grid, $i, $j-1) + $this->DFS($grid, $i, $j+1);
+    }    
 }
