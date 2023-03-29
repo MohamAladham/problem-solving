@@ -6,47 +6,51 @@ class Solution {
      * @return Integer[]
      */
     function findOrder($numCourses, $prerequisites) {
-        if(sizeof($prerequisites) == 0){
-            $res = [];
-            for($i=1; $i < $numCourses; $i++){
-                $res[$i] =$numCourses-$i;
-            }
-        }
-        $indegree = array_fill(0, $numCourses-1, 0);
-        $preMap=[];
-        $ordering = [];
-        
-        $preMap = [];
-        for( $i =0; $i < $numCourses; $i++){
-            $preMap[$i] = [];
-        }
-        foreach($prerequisites as $pair){
-            $crs = $pair[0];
-            $pre = $pair[1];
-            array_push($preMap[$pre], $crs);
-            $indegree[$crs] ++;     
+        $adj = [];
+        $output = [];
+
+        foreach ($prerequisites as $p) {
+            $adj[$p[0]][] = $p[1];
         }
 
-        $queue= new SplQueue();
-        for($i =0; $i < $numCourses; $i++){
-            if($indegree[$i] == 0){
-                $queue->enqueue($i);
+        $nodeToVisitedState = [];
+        
+        for ($i = 0; $i < $numCourses; $i++) {
+            if (!$this->DFS($i, $adj, $nodeToVisitedState, $output)) {
+                return [];
             }
         }
-        $count =0;
-        while(! $queue->isEmpty()){
-            $first = $queue->dequeue();
-            $count++;
-            array_push($ordering, $first);
-            foreach($preMap[$first] as $x){
-                $indegree[$x]=$indegree[$x]-1;
-                if($indegree[$x] == 0)
-                    $queue->enqueue($x);
-            }
-        }
-        if($count != $numCourses)
-            return [];
-        return $ordering; 
+
+        return $output;
     }
 
+
+
+    function DFS($currentNode, $adj, &$nodeToVisitedState, &$output) {
+        // Base cases
+        $currentVisitedState = $nodeToVisitedState[$currentNode] ?? 0;
+        // We're seeing a node again as part of one of its children recursive calls --> we have a cycle.
+        if ($currentVisitedState == 1) {
+            return false;
+        }
+        // We've already recursively explored all children of this node --> we can already determine that there is no cycle.
+        elseif ($currentVisitedState == 2) {
+            return true;
+        }
+    
+        // Mark the node as currently being recursively explored (but not complete again) so that we can identify if one of its children recursive calls touches it again (and thus that we have a cycle)
+        $nodeToVisitedState[$currentNode] = 1;
+    
+        foreach ($adj[$currentNode] as $neighbour) {
+            if (!$this->DFS($neighbour, $adj, $nodeToVisitedState, $output)) {
+                return false;
+            }
+        }
+    
+        // We're done recursively exploring its children - mark it as completely visited so we don't attempt to explore it again.
+        $nodeToVisitedState[$currentNode] = 2;
+        $output[] = $currentNode;
+        
+        return true;
+    }
 }
