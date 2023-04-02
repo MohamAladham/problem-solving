@@ -18,29 +18,22 @@ class Solution {
      * @return Integer
      */
     function sumOfLeftLeaves($root) {
-        $q = new SplQueue();
-        $q->enqueue($root);
         $sum = 0;
-
-        while(!$q->isEmpty()){
-            $count = $q->count();
-
-            for($i=0; $i<$count; $i++){
-                $node = $q->dequeue();
-    
-                if($node->left && !$node->left->left && !$node->left->right){
-                    $sum += $node->left->val;
-                }  
-
-                if($node->left ){
-                    $q->enqueue($node->left);
-                }
-                if($node->right){
-                    $q->enqueue($node->right);
-                }
-            }
-        }
+        $this->DFS($root, $sum);
 
         return $sum;
+    }
+
+    function DFS($root, &$sum){
+        if(!$root){
+            return;
+        }
+
+        if($root->left && !$root->left->left && !$root->left->right){
+            $sum += $root->left->val;
+        }
+    
+        $this->DFS($root->left, $sum);
+        $this->DFS($root->right, $sum);
     }
 }
