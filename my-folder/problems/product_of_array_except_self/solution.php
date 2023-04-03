@@ -5,34 +5,35 @@ class Solution {
      * @return Integer[]
      */
     function productExceptSelf($nums) {
+        // [1,  2,  3, 4]
+        // [1,  2,  6, 24] <-- pre
+        // [24, 24, 12,4] <-- post
+        // [24, 12, 8, 6]
+
         $pre = [];
         $post = [];
         $ans = [];
 
-        foreach($nums as $index=>$val){
-            if($index === 0){
-                $pre[] = $val;
+        for($i=0; $i<count($nums); $i++){
+            if($i === 0){
+                $pre[] = $nums[$i];
             }else{
-                $pre[] = $pre[$index-1] * $val;
+                $pre[] = $pre[$i - 1] * $nums[$i];
             }
         }
 
         for($i=count($nums)-1; $i>=0; $i--){
-            if($i === count($nums)-1){
-                $post[$i] = $val;
+            if($i === count($nums) -1){
+                $post[$i] = $nums[$i];
             }else{
-                $post[$i] = $post[$i+1] * $nums[$i];
+                $post[$i] = $post[$i + 1] * $nums[$i];
             }
         }
-        
-        foreach($nums as $index=>$val){
-            if($index === 0){
-                $ans[$index] = $post[$index+1];
-            }elseif($index === count($nums)-1){
-                $ans[$index] = $pre[$index-1];
-            }else{
-                $ans[$index] = $pre[$index-1] * $post[$index+1];
-            }
+
+        for($i=0; $i<count($nums); $i++){
+            $i_pre = $pre[$i - 1] ?? 1;
+            $i_post = $post[$i + 1] ?? 1;
+            $ans[$i] = $i_pre * $i_post;
         }
 
         return $ans;
