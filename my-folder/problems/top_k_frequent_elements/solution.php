@@ -9,15 +9,20 @@ class Solution {
         $maxHeap = new SplMaxHeap();
         $hash = [];
 
-        for($i=0; $i<count($nums); $i++){
-            $hash[$nums[$i]] = isset($hash[$nums[$i]]) ? ++$hash[$nums[$i]]:1;
+        foreach($nums as $n){
+            $hash[$n] = isset($hash[$n]) ? $hash[$n]+1 : 1;
         }
 
-        foreach($hash as $key=>$value){
-            $maxHeap->insert([$value,$key]);
+        foreach($hash as $k_=>$v){
+            $maxHeap->insert([$v, $k_]);
         }
 
-        for($i=0; $i<$k; $i++){
+        $ans = [];
+
+        while(!$maxHeap->isEmpty()){
+            if(count($ans) === $k){
+                break;
+            }
             $ans[] = $maxHeap->extract()[1];
         }
 
