@@ -5,18 +5,18 @@ class Solution {
      * @return String[][]
      */
     function groupAnagrams($strs) {
-        $len = count($strs);        
-        $mapArr = [];
-        $resArr = [];
+        // ["eat","tea","tan","ate","nat","bat"]
+        // nat, tan => atn
+        $hash = [];
 
-        for($i=0;$i<$len;$i++){
-            $tempArr = str_split($strs[$i]);
-            sort($tempArr);
-            $tempStr = implode("",$tempArr);
-          
-            $resArr[$tempStr][] = $strs[$i];
+        foreach($strs as &$s){
+            $old_s = $s;
+            $s = str_split($s);
+            sort($s);
+            $s = implode('', $s);
+            $hash[$s][] = $old_s;
         }
-        
-        return array_values($resArr);
+var_dump($strs);
+        return $hash;
     }
 }
