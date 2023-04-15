@@ -1,60 +1,55 @@
 class Solution {
-   
- /*
-         ____________   <- new interval
-      _______________   <- after merge      
-____  _______  ____  _______        ________________
-------------------------------------------------------
-^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^
-1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16
 
-
- */  
-      
-   
     /**
      * @param Integer[][] $intervals
      * @param Integer[] $newInterval
      * @return Integer[][]
      */
     function insert($intervals, $newInterval) {
-        $newStart = $newInterval[0];
-        $newEnd = $newInterval[1];
-       
-        $i = 0;
-        $n = count($intervals);
+        // [[1,2],[3,5],[6,7],[8,10],[12,16]]
+        //  [4,8] 
+        /*
+            ----------------
+                                         --------                                   
+                                            ________        
+                            _________        
+                    _____
+        _________   
+_____   
+-------------------------------------------------------
+1   2   3   4   5   6   7   8   9   10  11  12      16
 
-        $output = array();
+        */
 
-        //              _________
-        // ______ ________ x____________x
-        // -----------------------------
-        while ($i < $n && $newStart > $intervals[$i][0]) {
-            array_push($output, $intervals[$i]);
-            $i = $i + 1;
-        }
-    
-        if (empty($output) || end($output)[1] < $newStart) {
-            array_push($output, $newInterval);
-        }
-        else {
-            $output[count($output) - 1][1] = max(end($output)[1], $newEnd);
-        }
+        // loop
+        // is new_start > current_start && new_start < current_end ? then current_end = new_end
+        // is new_start < current_start && new_end > current_start ? then current_start = new_start
+        $ans = [$newInterval];
         
-        while ($i < $n) {
-            $ei = $intervals[$i];
-            $start = $ei[0];
-            $end = $ei[1];
+        foreach($intervals as $int){
+            $current_start = $int[0];
+            $current_end = $int[1];
+            $ans_start = end($ans)[0];
+            $ans_end = end($ans)[1];
 
-            if (end($output)[1] < $start) {
-                array_push($output, $ei);
+
+            if(($ans_start >= $current_start && $ans_start <= $current_end)
+            || ($ans_end >= $current_start && $ans_end <= $current_end)
+            || ($ans_start <= $current_start && $ans_end >= $current_end)){
+                $temp = array_pop($ans); 
+                array_push($ans, [min($temp[0], $current_start), max($temp[1], $current_end)]);
+            }elseif($current_start < $ans_start && $current_end < $ans_start){
+                $temp = array_pop($ans); 
+                array_push($ans, $int);
+                array_push($ans, $temp);
             }
-            else {
-                $output[count($output) - 1][1] = max(end($output)[1], $end);
+            else{
+                array_push($ans, $int);
             }
-            $i++;
+
         }
-      
-        return $output;
+
+        return $ans;
+
     }
 }
