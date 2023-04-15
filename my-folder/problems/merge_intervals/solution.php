@@ -5,23 +5,26 @@ class Solution {
      * @return Integer[][]
      */
     function merge($intervals) {
-        array_multisort($intervals);
-        $res = [$intervals[0]];
-        $k = 0;
+        /*
+          -------
+______________
+        */
+        
+        sort($intervals);
+        
+        $ans = [array_shift($intervals)];
 
-        for($i=1; $i<count($intervals); $i++){
-            $start = $intervals[$i][0];
-            $end = $intervals[$i][1];
-            $last_interv = end($res);
-
-            if($start <= $last_interv[1]){
-                $res[$k] = [$last_interv[0], max($end, $last_interv[1])];
+        foreach($intervals as [$start, $end]){
+            if(($start >= end($ans)[0] && $start <= end($ans)[1])
+            || ($start >= end($ans)[0] && $end <= end($ans)[1])
+            || ($start <= end($ans)[1] && $end >= end($ans)[1])){
+                $temp = array_pop($ans);
+                array_push($ans, [min($temp[0], $start), max($temp[1], $end)]);
             }else{
-                $res[] = $intervals[$i];
-                $k++;
+                array_push($ans, [$start, $end]);
             }
         }
 
-        return $res;
+        return $ans;
     }
 }
