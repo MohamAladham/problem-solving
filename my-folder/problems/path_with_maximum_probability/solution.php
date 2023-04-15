@@ -10,39 +10,32 @@ class Solution {
      */
     function maxProbability($n, $edges, $succProb, $start, $end) {
         $adjs = [];
-
-        foreach($edges as $i=>$e){
-            $adjs[$e[0]][] = [$e[1], $succProb[$i]];
-            $adjs[$e[1]][] = [$e[0], $succProb[$i]];
-        }
-
-        $visited = [];
-        $heap = new SplMaxHeap();
-        $heap->insert([1, $start]);
         $max = 0;
 
+        for($i=0; $i<count($edges); $i++){
+            $adjs[$edges[$i][0]][] = [$edges[$i][1], $succProb[$i]];
+            $adjs[$edges[$i][1]][] = [$edges[$i][0], $succProb[$i]];
+        }
+
+        $heap = new SplMaxHeap();
+        $visited = [];
+        $heap->insert([1, $start]);
+
         while(!$heap->isEmpty()){
-            list($succ, $node) = $heap->extract();
+            [$nScc, $node] = $heap->extract();
 
-            if(in_array($node, $visited)){
+            if(isset($visited[$node])){
                 continue;
             }
 
-            if($node === $end){
-                $max = max($max, $succ);
-                continue;
+            if($end === $node){
+                $max = max($max, $nScc);
             }
 
-            $visited[] = $node;
+            $visited[$node] = true;
 
-            foreach($adjs[$node] as $neighbour){
-                list($n_node, $n_succ) = $neighbour;
-
-                if(in_array($n_node, $visited)){
-                    continue;
-                }
-
-                $heap->insert([$n_succ*$succ, $n_node]);
+            foreach($adjs[$node] as [$adjNode, $adjSucc]){
+                $heap->insert([$adjSucc*$nScc, $adjNode]);
             }
         }
 
