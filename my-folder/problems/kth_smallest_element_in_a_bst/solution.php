@@ -19,28 +19,19 @@ class Solution {
      * @return Integer
      */
     function kthSmallest($root, $k) {
-        $this->k = $k;
-        $depth = 0;
-        $this->res = null;
-        $this->DFS($root, $depth);
+        $ans = [];
+        $this->DFS($root, $k, $ans);
 
-        return $this->res;
+        return $ans[$k-1];
     }
 
-    function DFS($root, &$depth){
-        if($this->res) return;
-            
-        if($root->left)
-            $this->DFS($root->left, $depth);
-
-        $depth++;
-
-        if($depth === $this->k){
-            $this->res = $root->val;
+    function DFS($root, $k, &$ans){
+        if(!$root || $k===count($ans)){
             return;
         }
 
-        if($root->right)
-            $this->DFS($root->right, $depth);
+        $this->DFS($root->left, $k, $ans);
+        $ans[] = $root->val;
+        $this->DFS($root->right, $k, $ans);
     }
 }
