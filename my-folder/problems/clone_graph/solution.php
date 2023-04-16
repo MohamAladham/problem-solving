@@ -11,61 +11,35 @@
  */
 
 class Solution {
-    
-    private $visited = [];
-    
     /**
      * @param Node $node
      * @return Node
      */
     function cloneGraph($node) {
-        if(!$node){
-            return $node;
-        }
-
-        //return $this->BFS($node);
-        return $this->DFS($node);
-    }
-
-
-    function BFS(Node $node):Node{
-        $queue = new SplQueue();
-        $queue->enqueue($node);
-        $copy = new Node($node->val);
-        $this->visited[$copy->val] = $copy;
-
-        while(!$queue->isEmpty()){
-            $current = $queue->dequeue();
-            
-            foreach($current->neighbors as $n){
-               if(!isset($this->visited[$n->val])){
-                    $queue->enqueue($n);
-                    $this->visited[$n->val] = new Node($n->val);
-                }
-                
-                $this->visited[$current->val]->neighbors[] = $this->visited[$n->val];
-            }
-        }
-
-        return $this->visited[$node->val];
-    }
-
-
-    function DFS(Node $node):Node{
-        if(isset($this->visited[$node->val])){
-            return $this->visited[$node->val];
-        }
-
-        $copy = new Node($node->val);
-        $this->visited[$node->val] = $copy;
-
-        foreach($node->neighbors as $n){
-            $copy->neighbors[] = $this->DFS($n);
-        }
-
+        
+        $visited = [];
+        $copy = $this->DFS($node, $visited);
+        
         return $copy;
     }
 
 
+    function DFS($node, &$visited){
+        if(!$node){
+            return $node;
+        }
 
+        if(isset($visited[$node->val])){
+            return $visited[$node->val];
+        }
+
+        $copy = new Node($node->val);
+        $visited[$node->val] = $copy;
+
+        foreach($node->neighbors as $n){
+            $copy->neighbors[] = $this->DFS($n, $visited);
+        }
+
+        return $copy;
+    }
 }
