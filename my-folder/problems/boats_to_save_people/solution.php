@@ -6,18 +6,21 @@ class Solution {
      * @return Integer
      */
     function numRescueBoats($people, $limit) {
+        $light = 0;
+        $heavy = count($people) - 1;
         $total = 0;
-        $left = 0;
-        $right = count($people) - 1;
+
         sort($people);
 
-        while($left <= $right){
-            if($people[$right] + $people[$left] <= $limit){
-                $left++;
+        while($light <= $heavy){
+            if($people[$heavy] + $people[$light] <= $limit){
+                $heavy--;
+                $light++;
+            }else{
+                $heavy--;
             }
 
             $total++;
-            $right--;         
         }
 
         return $total;
