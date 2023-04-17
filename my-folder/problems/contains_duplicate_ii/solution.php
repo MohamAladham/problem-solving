@@ -8,12 +8,12 @@ class Solution {
     function containsNearbyDuplicate($nums, $k) {
         $hash = [];
 
-        foreach($nums as $index=>$n){
-            if(isset($hash[$n]) && abs($hash[$n] - $index)<=$k){
+        foreach($nums as $i=>$n){
+            if(isset($hash[$n]) && abs($hash[$n] - $i) <= $k){
                 return true;
             }
 
-            $hash[$n] = $index;
+            $hash[$n] = $i;
         }
 
         return false;
