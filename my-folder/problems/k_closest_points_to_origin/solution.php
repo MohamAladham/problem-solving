@@ -6,17 +6,19 @@ class Solution {
      * @return Integer[][]
      */
     function kClosest($points, $k) {
-        $minHeap = new SplMinHeap();
-
-        for($i=0; $i<count($points); $i++){
-            $distance = sqrt(pow($points[$i][0],2) + pow($points[$i][1],2));
-            $minHeap->insert([$distance, $i]);
+        $heap = new SplMinHeap();
+        $ans = [];
+    
+        foreach($points as $i=>[$x, $y]){
+            $distance = sqrt(pow($x-0, 2) + pow($y-0, 2));
+            $heap->insert([$distance, $i]);
         }
 
-        for($i=0; $i<$k; $i++){
-            $v[] = $points[$minHeap->extract()[1]];
+        
+        while(!$heap->isEmpty() && $k-- > 0){
+            $ans[] = $points[$heap->extract()[1]];
         }
 
-        return $v;
+        return $ans;
     }
 }
