@@ -8,22 +8,23 @@ class Solution {
      * @return Integer
      */
     function fourSumCount($nums1, $nums2, $nums3, $nums4) {
-        $count = 0;
         $hash = [];
+        $res = 0;
+
+        foreach($nums1 as $n1){
+            foreach($nums2 as $n2){
+                $hash[$n1+$n2] = isset($hash[$n1+$n2]) ? $hash[$n1+$n2]+1 : 1;
+            }
+        }
         
-        foreach($nums1 as $v1){
-            foreach($nums2 as $v2){
-                $hash[$v1+$v2] = isset($hash[$v1+$v2]) ? $hash[$v1+$v2]+1 : 1;
+        foreach($nums3 as $n3){
+            foreach($nums4 as $n4){
+                if(isset($hash[-1*($n3+$n4)])){
+                    $res += $hash[-1*($n3+$n4)];
+                }
             }
         }
 
-        foreach($nums3 as $v3){
-            foreach($nums4 as $v4){
-                $count += $hash[-($v3+$v4)] ?? 0;
-            }
-        }
-
-
-        return $count;
+        return $res;
     }
 }
