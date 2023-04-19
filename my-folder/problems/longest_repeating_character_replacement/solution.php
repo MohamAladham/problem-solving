@@ -6,22 +6,23 @@ class Solution {
      * @return Integer
      */
     function characterReplacement($s, $k) {
-        $count = strlen($s);
-        $hash_count = [];
+        $max = 0;
+        $hash = [];
         $l = 0;
-        $ans = 0;
+        $r = 0;
 
-        for($r=0; $r<$count; $r++){
-            $hash_count[$s[$r]] = isset($hash_count[$s[$r]]) ? $hash_count[$s[$r]]+1 : 1;
+        while($r<strlen($s)){
+            $hash[$s[$r]] = isset($hash[$s[$r]]) ? $hash[$s[$r]]+1 : 1;
 
-            while($r - $l + 1 - max($hash_count) > $k ){
-                $hash_count[$s[$l]] -= 1;
+            if(max($hash)+$k < $r-$l+1){
+                $hash[$s[$l]]--;
                 $l++;
             }
 
-            $ans = max($ans, $r-$l+1);
+            $max = $r-$l+1;
+            $r++;
         }
 
-        return $ans;
+        return $max;
     }
 }
