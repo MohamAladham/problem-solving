@@ -5,39 +5,16 @@ class Solution {
      * @return String
      */
     function reverseWords($s) {
-        return $this->usingStack($s);
-    }
+        // "a good   example"
+        // "example good a"
 
-
-
-    function usingStack($str){
-        $ans = '';
-        $word = '';
-        $stack = new SplStack();
-
-        for($i=0; $i<strlen($str); $i++){
-            if($str[$i] !== ' '){
-                $word .= $str[$i];
-                if($i === strlen($str)-1){
-                    $stack->push($word);
-                }
-            }else{
-                if(strlen($word)){
-                    $stack->push($word);
-                }
-
-                $word = '';
-            }
-        }
-
-        while(!$stack->isEmpty()){
-            $ans .= $stack->pop();
-
-            if(!$stack->isEmpty()){
-                $ans .= ' ';
-            }
-        }
-
-        return $ans;
+        $s = trim($s);
+        $s = explode(' ', $s);
+        var_dump($s);
+        $s = array_filter($s, function($a){return $a != '';});
+        var_dump($s);
+        $s = array_reverse($s);
+        $s = implode(' ', $s);
+        return $s;
     }
 }
