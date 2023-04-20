@@ -21,30 +21,30 @@ class Solution {
         if(!$root){
             return [];
         }
-        
-        $queue = new SplQueue();
-        $queue->enqueue($root);
-        $output = [];
 
-        while(!$queue->isEmpty()){
-            $qCount = $queue->count();
+        $q = new SplQueue();
+        $ans = [];
+        $q->enqueue($root);
+
+        while(!$q->isEmpty()){
+            $count = $q->count();
             $level = [];
 
-            for($i=0; $i<$qCount; $i++){
-                $node = $queue->dequeue();
+            for($i=0; $i<$count; $i++){
+                $node = $q->dequeue();
                 $level[] = $node->val;
 
                 if($node->left){
-                    $queue->enqueue($node->left);
+                    $q->enqueue($node->left);
                 }
                 if($node->right){
-                    $queue->enqueue($node->right);
+                    $q->enqueue($node->right);
                 }
             }
 
-            $output[] = $level;
+            $ans[] = $level;
         }
 
-        return $output;
+        return $ans;
     }
 }
