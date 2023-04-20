@@ -5,56 +5,40 @@ class Solution {
      * @return Integer[][]
      */
     function allPathsSourceTarget($graph) {
-        $listOfPaths = [];
-        $this->DFS($graph, $listOfPaths, [0], count($graph) - 1);
-        return $listOfPaths;
-        return $this->BFS($graph);
+        /* [
+            0 [1,2],
+            1 [3],
+            2 [3],
+            3 []
+            ]
+
+        */
+
+        $ans = [];
+        $path = [];
+        $this->backtrack($graph, $path, $ans);
+
+        return $ans;
     }
 
-
-    function BFS($graph){
-        $queue = new SplQueue();
-        // initiate the queue with the first node (the starting point of the path)
-        $queue->enqueue([0]);
-        $listOfPaths = [];
-        // our target is the last node.
-        $target = count($graph) - 1;
-
-        while(!$queue->isEmpty()){
-            $path = $queue->dequeue();
-            $endofPath = end($path);
-
-            if($endofPath === $target){ // the end of the path = our target? we reached it.
-                $listOfPaths[] = $path;
-            }else{ // else, go with other possible paths of the current one.
-                foreach($graph[$endofPath] as $n){
-                    // try the current path with the new node ($n)
-                    array_push($path, $n);
-                    $queue->enqueue($path);
-                    // remove the $n so we try others in next iterations.
-                    array_pop($path);
-                }
-            }
-        }
-
-        return $listOfPaths;
-    }
-
-
-    function DFS($graph, &$listOfPaths, $path, $target){
-        // the end of the path = our target? we reached the target node.
-        if(end($path) === $target){
-            $listOfPaths[] = $path;
+    function backtrack($graph, $path, &$ans, $i=0){
+        var_dump(($path));
+        if($i === count($graph) - 1){
+            $path[] = $i;
+            $ans[] = $path;
             return;
         }
 
-        // else, go with other possible paths of the current one.
-        foreach($graph[end($path)] as $n){
-            // try the current path with the new node ($n)
-            array_push($path, $n);
-            $this->DFS($graph, $listOfPaths, $path, $target);
-            // remove the $n so we try others in next iterations.
+        if(count($path) === count($graph) - 1){
+            return;
+        }
+
+    
+        for($j=0; $j<count($graph[$i]); $j++){
+            array_push($path, $i);
+            $this->backtrack($graph, $path, $ans, $graph[$i][$j]);
             array_pop($path);
         }
+
     }
 }
