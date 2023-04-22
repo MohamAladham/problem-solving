@@ -5,14 +5,15 @@ class Solution {
     function subarraySum(array $nums, int $k): int {
         $map = [0=>1];
         $count = 0;
-        $sum = 0;
         $pre = [];
 
-        foreach ($nums as $num) {
-            $sum += $num;
-            $pre[] = $sum;
+        for($i=0; $i<count($nums); $i++) {
+            if($i === 0){
+                $pre[] = $nums[$i];
+            }else{
+                $pre[] = $pre[$i-1] + $nums[$i];
+            }
         }
-
 
         foreach ($pre as $sum) {
             $count += $map[$sum - $k] ?? 0;
