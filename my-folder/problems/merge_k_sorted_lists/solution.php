@@ -16,35 +16,24 @@ class Solution {
      * @return ListNode
      */
     function mergeKLists($lists) {
-        $arr = [];
-        
+        $heap = new SplMinHeap();
+
         foreach($lists as $l){
-            $iterator = $l;
-            
-            while($iterator){
-                //$arr[] = $iterator->val;
-                array_push($arr, $iterator->val);
-                $iterator = $iterator->next;
+            while($l){
+                $heap->insert($l->val);
+                $l = $l->next;
             }
-        }    
-
-        sort($arr);
-
-        $result = null;
-        
-        for($i = (count($arr) - 1); $i >= 0; $i--) {            
-            $result = new ListNode($arr[$i], $result);
         }
+
+        $ans = new ListNode(0, new ListNode() );
+        $pointer = $ans->next;
         
-        return $result;
+        while(!$heap->isEmpty()){
+            //var_dump($pointer);
+            $pointer->next = new ListNode($heap->extract());
+            $pointer = $pointer->next;
+        }
+
+        return $ans->next->next;
     }
-
 }
-
-
-
-
-
-
-
-
