@@ -5,18 +5,23 @@ class Solution {
      * @return Integer
      */
     function maxProfit($prices) {
-        $total = 0;
-        $buyP = 0;
-        $sellP = 0;
+        // [7,1,5,3,6,4] 
+        // [1,2,3,4,5]
 
-        for(; $sellP < count($prices); $sellP++){
-            if($prices[$sellP] > $prices[$buyP]){
-                $total += $prices[$sellP] - $prices[$buyP];
+        $sum = 0;
+        $buy = 0;
+        
+        for($sell=1; $sell<count($prices); $sell++){
+            if($prices[$sell] < $prices[$buy]){
+                $buy = $sell;
+            }else{
+                $profit = $prices[$sell] - $prices[$buy];
+            //    $maxArr[$buy] = isset($maxArr[$buy]) ? max($maxArr[$buy], $profit) : $profit;
+                $sum += $profit;
+                $buy = $sell;
             }
-
-            $buyP = $sellP;
         }
-
-        return $total;
+        
+        return $sum;
     }
 }
