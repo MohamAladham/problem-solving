@@ -23,16 +23,16 @@ class Solution {
         }
 
         $q = new SplQueue();
-        $ans = [];
         $q->enqueue($root);
+        $ans = [];
 
         while(!$q->isEmpty()){
             $count = $q->count();
-            $level = [];
+            $arr = [];
 
             for($i=0; $i<$count; $i++){
                 $node = $q->dequeue();
-                $level[] = $node->val;
+                $arr[] = $node->val;
 
                 if($node->left){
                     $q->enqueue($node->left);
@@ -42,7 +42,7 @@ class Solution {
                 }
             }
 
-            $ans[] = $level;
+            $ans[] = $arr;
         }
 
         return $ans;
