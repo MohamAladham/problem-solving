@@ -22,38 +22,40 @@ class Solution {
             return [];
         }
         
-        $queue = new SplQueue();
-        $queue->enqueue($root);
-        $res = [];
-        $iterations = 0;
+        $iteration = 0;
+        $ans = [];
+        $q = new SplQueue();
+        $q->enqueue($root);
+        
 
-        while(!$queue->isEmpty()){
-            $count = $queue->count();
+        while(!$q->isEmpty()){
+            $count = $q->count();
             $arr = [];
             
             for($i=0; $i<$count; $i++){
-                $root =  $queue->dequeue();
-                
-                if($iterations%2===0){
-                    $arr[] = $root->val;
+                $node = $q->dequeue();
+
+                if($iteration%2 === 0){
+                   $arr[] = $node->val;  
                 }else{
-                    array_unshift($arr, $root->val);
-                }
-                
-                if($root->left){
-                    $queue->enqueue($root->left);
+                   array_unshift($arr, $node->val);
                 }
 
-                if($root->right){
-                    $queue->enqueue($root->right);
+                if($node->left){
+                    $q->enqueue($node->left);
+                }
+                if($node->right){
+                    $q->enqueue($node->right);
                 }
             }
 
-            $res[] = $arr; 
-            $iterations++;
+            $ans[] = $arr;
+
+
+
+            $iteration++;
         }
 
-
-        return $res;
+        return $ans;
     }
 }
