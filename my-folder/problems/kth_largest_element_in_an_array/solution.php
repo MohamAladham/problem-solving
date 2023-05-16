@@ -6,16 +6,17 @@ class Solution {
      * @return Integer
      */
     function findKthLargest($nums, $k) {
-        $maxHeap = new SplMaxHeap();
+       $heap = new SplMaxHeap();
 
-        for($i=0; $i<count($nums); $i++){
-            $maxHeap->insert($nums[$i]);
-        }
+       foreach($nums as $n){
+           $heap->insert($n);
+       }
 
-        for($i=0; $i<$k; $i++){
-            $v = $maxHeap->extract();
-        }
 
-        return $v;
+       for($i=0; $i<$k-1; $i++){
+            $heap->extract();
+       }
+
+       return $heap->extract();
     }
 }
