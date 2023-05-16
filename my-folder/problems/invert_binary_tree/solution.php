@@ -18,11 +18,12 @@ class Solution {
      * @return TreeNode
      */
     function invertTree($root) {
+        $q = new SplQueue();
+        
         if(!$root){
             return $root;
         }
         
-        $q = new SplQueue();
         $q->enqueue($root);
 
         while(!$q->isEmpty()){
@@ -30,19 +31,17 @@ class Solution {
 
             for($i=0; $i<$count; $i++){
                 $node = $q->dequeue();
-            
-                $left = $node->left;
+
+                $temp = $node->left;
                 $node->left = $node->right;
-                $node->right = $left;
+                $node->right = $temp;
 
                 if($node->left){
                     $q->enqueue($node->left);
                 }
-
                 if($node->right){
                     $q->enqueue($node->right);
                 }
-
             }
         }
 
