@@ -16,25 +16,30 @@ class Solution {
      * @return Node
      */
     function cloneGraph($node) {
-        
-        $visited = [];
-        $copy = $this->DFS($node, $visited);
-        
-        return $copy;
-    }
+    /*
+    
+    1:[2,4]
+    2:[1,3]
+    .
+    .
+     */   
 
+        $visited = [];
+        return $this->DFS($node, $visited);
+
+    }
 
     function DFS($node, &$visited){
         if(!$node){
             return $node;
         }
-
+        
         if(isset($visited[$node->val])){
             return $visited[$node->val];
         }
-
+        
         $copy = new Node($node->val);
-        $visited[$node->val] = $copy;
+        $visited[$copy->val] = $copy;
 
         foreach($node->neighbors as $n){
             $copy->neighbors[] = $this->DFS($n, $visited);
