@@ -18,36 +18,31 @@ class Solution {
      * @param Integer $targetSum
      * @return Boolean
      */
-    function hasPathSum($root, $targetSum) {
-        $sum = $root->val;
-        $found= null;
-
-        $this->DFS($root, $targetSum, $sum, $found);
-
-        return $found;
+    function hasPathSum($root, $targetSum) {  
+        return $this->DFS($root, 0,$targetSum);
     }
 
 
-    function DFS($root, $targetSum, &$sum, &$found){
-        if($sum === $targetSum && !$root->left && !$root->right){
-            $found = true;
-            return;
+    function DFS($root, $sum, $targetSum){
+        $sum += $root->val;
+
+        if(!$root){
+            return false;
+        }
+
+        if(!$root->left && !$root->right){
+            if($sum === $targetSum){
+                return true;
+            }else{
+                return false;
+            }
         }
         
-        if(!$root || $found){
-            return;
-        }
+        
 
-        if($root->left){
-            $sum += $root->left->val;
-            $this->DFS($root->left, $targetSum, $sum, $found);
-            $sum -= $root->left->val;
-        }
-    
-        if($root->right){
-            $sum += $root->right->val;
-            $this->DFS($root->right, $targetSum, $sum, $found);
-            $sum -= $root->right->val;
-        }
+        return $this->DFS($root->left, $sum,$targetSum) || $this->DFS($root->right, $sum, $targetSum);
     }
+
+
+
 }
