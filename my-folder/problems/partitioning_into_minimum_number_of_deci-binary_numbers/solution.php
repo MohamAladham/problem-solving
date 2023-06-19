@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -5,7 +8,7 @@ class Solution {
      * @return Integer
      */
     function minPartitions($n) {
-       
+
        	return max(str_split($n));
 
         $n = str_split($n);

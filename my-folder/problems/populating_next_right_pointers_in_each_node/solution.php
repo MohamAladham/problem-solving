@@ -10,6 +10,9 @@
  * }
  */
 
+<?php
+
+
 class Solution {
     /**
      * @param Node $root

@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -12,7 +15,7 @@ class Solution {
              if($s[$r] === ' ' || $r === strlen($s)){
                 while(!$stack->isEmpty()){
                     $ans .= $stack->pop();
-                }    
+                }
 
                 if($r !== strlen($s)){
                     $ans .= ' ';

@@ -7,6 +7,9 @@
  * }
  */
 
+<?php
+
+
 class Solution {
     /**
      * @param ListNode $head

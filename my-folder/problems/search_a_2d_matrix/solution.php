@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -13,9 +16,9 @@ class Solution {
 
         while($top <= $bot){
             $row = (int) (($top + $bot) / 2);
-            
+
            if($target > $matrix[$row][$cols-1]){
-                $top = $row + 1;                
+                $top = $row + 1;
             }elseif($target < $matrix[$row][0]){
                 $bot = $row -1;
             }else{

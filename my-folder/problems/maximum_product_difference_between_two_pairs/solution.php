@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -10,10 +13,10 @@ class Solution {
 
     function sol1($nums){
         sort($nums);
-        
+
         $count_nums = count($nums);
-      
-        return ($nums[$count_nums -1] * $nums[$count_nums -2]) 
+
+        return ($nums[$count_nums -1] * $nums[$count_nums -2])
         - ($nums[0] * $nums[1]);
     }
 }

@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -10,7 +13,7 @@ class Solution {
         $r = 2;
 
         while($r<strlen($s)){
-           $hash = []; 
+           $hash = [];
 
            for($i=$l; $i<=$r; $i++){
                if(isset($hash[$s[$i]])){

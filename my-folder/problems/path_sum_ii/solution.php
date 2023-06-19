@@ -11,6 +11,9 @@
  *     }
  * }
  */
+<?php
+
+
 class Solution {
 
     /**
@@ -28,7 +31,7 @@ class Solution {
         if(!$root){
             return;
         }
-        
+
         if(!$root->left && !$root->right){
             $sum = 0;
             $path[] = $root->val;
@@ -40,7 +43,7 @@ class Solution {
             if($sum === $targetSum){
                 $list[] = $path;
             }
-            
+
             return;
         }
 

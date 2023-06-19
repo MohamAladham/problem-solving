@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -32,7 +35,7 @@ class Solution {
             }else{
                 $postfix[$i] = $postfix[$i+1] + $nums[$i];
             }
-                
+
 
             if($postfix[$i] === $prefix[$i])
                 $index = $i;

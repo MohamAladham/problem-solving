@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -9,7 +12,7 @@ class Solution {
         $sum = 0;
         // Biggest number should be first, otherwise, the number is going to be negative
 
-        for($i=0; $i<strlen($s); $i++){  
+        for($i=0; $i<strlen($s); $i++){
             if(isset($s[$i+1]) && $hash[$s[$i+1]] > $hash[$s[$i]]){
                 $sum -= $hash[$s[$i]];
             }else{

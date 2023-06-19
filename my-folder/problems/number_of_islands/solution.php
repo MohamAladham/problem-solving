@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -32,7 +35,7 @@ class Solution {
         }
 
         $grid[$i][$j] = 0;
-        
+
         $this->DFS($grid, $i, $j+1, $total);
         $this->DFS($grid, $i+1, $j, $total);
         $this->DFS($grid, $i, $j-1, $total);

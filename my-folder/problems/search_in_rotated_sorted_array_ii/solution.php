@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -6,7 +9,7 @@ class Solution {
      * @return Boolean
      */
     function search($nums, $target) {
-        //[2,5,6,7,8,9,0,0,1,2] // 0 
+        //[2,5,6,7,8,9,0,0,1,2] // 0
         //         ^
 
 
@@ -14,7 +17,7 @@ class Solution {
         $r = count($nums) - 1;
 
         while($l<=$r){
-           
+
             while( $nums[$l] === $nums[$l+1]){
                 $l++;
             }

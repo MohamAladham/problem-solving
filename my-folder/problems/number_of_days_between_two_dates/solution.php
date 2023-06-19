@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -6,7 +9,7 @@ class Solution {
      * @return Integer
      */
     function daysBetweenDates($date1, $date2) {
-        
+
         $date1 = strtotime($date1);
         $date2 = strtotime($date2);
         $datediff = $date1 - $date2;

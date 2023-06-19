@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -12,7 +15,7 @@ class Solution {
         foreach($nums1 as $n){
             $hash[$n] = 1;
         }
-        
+
         foreach($nums2 as $n){
             if(isset($hash[$n]) && $hash[$n] === 1){
                 $hash[$n] = ++$hash[$n];

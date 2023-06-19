@@ -11,6 +11,9 @@
  *     }
  * }
  */
+<?php
+
+
 class Solution {
 
     /**
@@ -19,11 +22,11 @@ class Solution {
      */
     function invertTree($root) {
         $q = new SplQueue();
-        
+
         if(!$root){
             return $root;
         }
-        
+
         $q->enqueue($root);
 
         while(!$q->isEmpty()){

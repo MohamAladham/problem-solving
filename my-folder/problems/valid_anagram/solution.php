@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -9,7 +12,7 @@ class Solution {
         $s_len = strlen($s);
         $t_len = strlen($t);
         $s_hash = [];
-       
+
         if($s_len !== $t_len){
             return false;
         }
@@ -28,7 +31,7 @@ class Solution {
             }
         }
 
-        
+
         return !(bool) $s_hash;
     }
 }

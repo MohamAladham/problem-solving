@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -33,7 +36,7 @@ class Solution {
             return;
         }
 
-    
+
         for($j=0; $j<count($graph[$i]); $j++){
             array_push($path, $i);
             $this->backtrack($graph, $path, $ans, $graph[$i][$j]);

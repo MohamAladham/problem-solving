@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -21,7 +24,7 @@ class Solution {
                 }
 
                 $d     = $i - $stack->top() - 1;
-                $water += $d * 
+                $water += $d *
                     ( min( $height[$i], $height[$stack->top()] ) - $height[$top] );
             }
 

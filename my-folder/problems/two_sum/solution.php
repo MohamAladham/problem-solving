@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -12,7 +15,7 @@ class Solution {
             if(isset($hash[$val])){
                 return [$hash[$val], $index];
             }
-            
+
             $hash[$target-$val] = $index;
         }
 

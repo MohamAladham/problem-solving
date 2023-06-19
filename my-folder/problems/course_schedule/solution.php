@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -13,7 +16,7 @@ class Solution {
         }
 
         $nodeToVisitedState = [];
-        
+
         for ($i = 0; $i < $numCourses; $i++) {
             if ($this->detectCycleDFSRecursive($i, $adj, $nodeToVisitedState)) {
                 return false;
@@ -36,16 +39,16 @@ class Solution {
         elseif ($currentVisitedState == 2) {
             return false;
         }
-    
+
         // Mark the node as currently being recursively explored (but not complete again) so that we can identify if one of its children recursive calls touches it again (and thus that we have a cycle)
         $nodeToVisitedState[$currentNode] = 1;
-    
+
         foreach ($adj[$currentNode] as $neighbour) {
             if ($this->detectCycleDFSRecursive($neighbour, $adj, $nodeToVisitedState)) {
                 return true;
             }
         }
-    
+
         // We're done recursively exploring its children - mark it as completely visited so we don't attempt to explore it again.
         $nodeToVisitedState[$currentNode] = 2;
         // We've explored the whole graph and haven't found a cycle!

@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -31,9 +34,9 @@ class Solution {
                         $n--;
                         continue;
                     }
-                    
+
                     $sum = $nums[$a] + $nums[$b] + $nums[$d] + $nums[$n];
-                    
+
                     if($sum === $target){
                         $ans[] = [$nums[$a], $nums[$b], $nums[$d], $nums[$n]];
                         $d++;

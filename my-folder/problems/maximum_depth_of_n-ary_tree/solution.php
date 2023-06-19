@@ -10,10 +10,13 @@
  * }
  */
 
+<?php
+
+
 class Solution {
-    
+
     private $counts_arr = [];
-   
+
     /**
      * @param Node $root
      * @return integer
@@ -22,7 +25,7 @@ class Solution {
         if(!$root){
             return 0;
         }
-       
+
         $this->DFS($root, 1);
         return max($this->counts_arr);
         //return $this->BFS($root);
@@ -39,7 +42,7 @@ class Solution {
 
             for($i=0; $i<$queue_count; $i++){
                 $node = $queue->dequeue();
-                
+
                 foreach($node->children as $child){
                     $queue->enqueue($child);
                 }

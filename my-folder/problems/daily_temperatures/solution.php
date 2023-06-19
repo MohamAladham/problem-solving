@@ -1,3 +1,6 @@
+<?php
+
+
 class Solution {
 
     /**
@@ -24,7 +27,7 @@ class Solution {
         for($i=0; $i<count($temperatures); $i++){
             while(!$stack->isEmpty() && $temperatures[$i]>$temperatures[$stack->top()]){
                 $temp = $temperatures[$stack->top()];
-                
+
                 if($temperatures[$i] > $temp){
                     $ans[$stack->top()] = $i - $stack->pop();
                 }
